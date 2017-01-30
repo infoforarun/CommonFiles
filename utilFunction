@@ -1,0 +1,22 @@
+
+private static synchronized void appendLog( String text ) {
+      final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+      try {
+          final FileWriter fileOut = new FileWriter( mLogFile, true );
+          fileOut.append( sdf.format(new Date()) + " : " + text + NEW_LINE ); 
+          fileOut.close();
+      }
+      catch ( final IOException e ) {
+          e.printStackTrace();
+      }
+  }
+
+  private static void logDeviceInfo() {
+          appendLog("Model : " + android.os.Build.MODEL);
+          appendLog("Brand : " + android.os.Build.BRAND);
+          appendLog("Product : " + android.os.Build.PRODUCT);
+          appendLog("Device : " + android.os.Build.DEVICE);
+          appendLog("Codename : " + android.os.Build.VERSION.CODENAME);
+          appendLog("Release : " + android.os.Build.VERSION.RELEASE);
+  }
