@@ -1,0 +1,422 @@
+package com.infoforarun.arun.dgifinapp;
+
+import android.annotation.TargetApi;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.os.Build;
+import android.provider.Settings;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Toast;
+import android.view.View.OnClickListener;
+import android.app.AlertDialog;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import static android.R.attr.button;
+import static android.R.id.list;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
+
+public class LineRequestActivity extends AppCompatActivity {
+
+    static int counter=0;
+    ListView list;
+    LineRequestAdapter adapter;
+    public LineRequestActivity LineRequestView = null;
+    public ArrayList<LineRequestModel> LineRequestArray = new ArrayList<LineRequestModel>();
+    private ProgressDialog progressBar;
+    Button downloadBtn, requestBtn;
+    ImageView noDataIv;
+    int clickedItemPosition;
+    String  TAG_LINE_NAME   = "LineName",
+            TAG_LINE_NO     = "LineNo",
+            TAG_LINE_STATUS = "LineStatus",
+            errorStr,
+            collectionDataUrl = "http://59.92.231.183:4343/Dgifin/CollectionDataGenerationRequest";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_line_request);
+
+        setListData();
+
+        LineRequestView = this;
+        downloadBtn = (Button)findViewById(R.id.Lr_Download_Btn);
+        requestBtn = (Button)findViewById(R.id.Lr_Request_Btn);
+        noDataIv = (ImageView)findViewById(R.id.Lr_No_data_Iv);
+        Resources res = getResources();
+        list = (ListView)findViewById(R.id.Lr_List);
+
+        requestBtn.setText("Request");
+        requestBtn.setEnabled(false);
+        downloadBtn.setText("Download");
+        downloadBtn.setEnabled(false);
+
+        if(LineRequestArray.size()>0) {
+            list.setVisibility(View.VISIBLE);
+            noDataIv.setVisibility(View.GONE);
+            adapter = new LineRequestAdapter(LineRequestView, LineRequestArray, res);
+            list.setAdapter(adapter);
+        } else {
+            list.setVisibility(View.GONE);
+            noDataIv.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    public void downloadBtnOnclick(View v) {
+
+        if(isOnline()) {
+            AlertDialog.Builder confirmDialg = new AlertDialog.Builder(LineRequestActivity.this);
+
+            confirmDialg.setTitle("Confirm");
+            confirmDialg.setMessage("Are you sure want to Download");
+            confirmDialg.setCancelable(false);
+            confirmDialg.setIcon(R.mipmap.ic_action_warning);
+            confirmDialg.setNegativeButton("Cancel", null);
+            confirmDialg.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                public void onClick(DialogInterface dialog, int arg1) {
+                    if (isOnline()) {
+                        LineRequestModel tempValues = (LineRequestModel) LineRequestArray.get(clickedItemPosition);
+                        initiateDownload(tempValues);
+                        progressBar = new ProgressDialog(LineRequestActivity.this);
+                        progressBar.setCancelable(false);
+                        progressBar.setMessage("Loading...");
+                        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressBar.show();
+                    } else {
+                        Snackbar.make(requestBtn, R.string.internet_offline, Snackbar.LENGTH_LONG)
+                                .setAction(R.string.settings, new View.OnClickListener() {
+                                    @Override
+                                    @TargetApi(Build.VERSION_CODES.M)
+                                    public void onClick(View v) {
+                                        startActivityForResult(new Intent(Settings.ACTION_SETTINGS), 0);
+                                    }
+                                }).setActionTextColor(Color.RED)
+                                .show();
+                    }
+                }
+            });
+            confirmDialg.show();
+        } else {
+            Snackbar.make(requestBtn, R.string.internet_offline, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.settings, new View.OnClickListener() {
+                        @Override
+                        @TargetApi(Build.VERSION_CODES.M)
+                        public void onClick(View v) {
+                            startActivityForResult(new Intent(Settings.ACTION_SETTINGS), 0);
+                        }
+                    }).setActionTextColor(Color.RED)
+                    .show();
+        }
+    }
+
+    public void requestBtnOnclick(View view) {
+        if(isOnline()) {
+            AlertDialog.Builder confirmDialg = new AlertDialog.Builder(LineRequestActivity.this);
+
+            confirmDialg.setTitle("Confirm");
+            confirmDialg.setMessage("Are you sure want to Request");
+            confirmDialg.setCancelable(false);
+            confirmDialg.setIcon(R.mipmap.ic_action_warning);
+            confirmDialg.setNegativeButton("Cancel", null);
+            confirmDialg.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                public void onClick(DialogInterface dialog, int arg1) {
+                    if (isOnline()) {
+                        LineRequestModel tempValues = (LineRequestModel) LineRequestArray.get(clickedItemPosition);
+                        initiateRequest(tempValues);
+                        progressBar = new ProgressDialog(LineRequestActivity.this);
+                        progressBar.setCancelable(false);
+                        progressBar.setMessage("Loading...");
+                        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressBar.show();
+                    } else {
+                        Snackbar.make(requestBtn, R.string.internet_offline, Snackbar.LENGTH_LONG)
+                                .setAction(R.string.settings, new View.OnClickListener() {
+                                    @Override
+                                    @TargetApi(Build.VERSION_CODES.M)
+                                    public void onClick(View v) {
+                                        startActivityForResult(new Intent(Settings.ACTION_SETTINGS), 0);
+                                    }
+                                }).setActionTextColor(Color.RED)
+                                .show();
+                    }
+                }
+            });
+            confirmDialg.show();
+        } else {
+            Snackbar.make(requestBtn, R.string.internet_offline, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.settings, new View.OnClickListener() {
+                        @Override
+                        @TargetApi(Build.VERSION_CODES.M)
+                        public void onClick(View v) {
+                            startActivityForResult(new Intent(Settings.ACTION_SETTINGS), 0);
+                        }
+                    }).setActionTextColor(Color.RED)
+                    .show();
+        }
+    }
+
+    /****** Function to set data in ArrayList *************/
+    public void setListData()
+    {
+        String mLineDesc, mLineNo, mLineStatus;
+        try {
+            String lineArray = getIntent().getStringExtra("lineArray");
+            if(lineArray!=null && lineArray!="" ) {
+                JSONArray lineArr = new JSONArray(getIntent().getStringExtra("lineArray"));
+
+                for (int i = 0; i < lineArr.length(); i++) {
+
+                    LineRequestModel assignvals = new LineRequestModel();
+                    JSONObject lineObj = lineArr.getJSONObject(i);
+                    mLineNo = lineObj.getString(TAG_LINE_NO);
+                    mLineDesc = lineObj.getString(TAG_LINE_NAME);
+                    mLineStatus = lineObj.getString(TAG_LINE_STATUS);
+
+                    assignvals.setLineName(mLineDesc);
+                    assignvals.setLineNo(mLineNo);
+                    assignvals.setLineStatus(mLineStatus);
+
+                    LineRequestArray.add(assignvals);
+                }
+            } else {
+                //Toast.makeText(getApplicationContext(), "No line data found", Toast.LENGTH_LONG).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /*****************  This function used by adapter ****************/
+
+    public void onItemClick(int mPosition)
+    {
+        LineRequestModel tempValues = (LineRequestModel) LineRequestArray.get(mPosition);
+
+        clickedItemPosition = mPosition;
+
+        if(tempValues.getLineStatus().equals("1")) {                   //Approved
+            downloadBtn.setText("Download " + tempValues.getLineName().toUpperCase());
+            requestBtn.setText("Request");
+            requestBtn.setEnabled(false);
+            downloadBtn.setEnabled(true);
+        } else if (tempValues.getLineStatus().equals("2")) {            //Available to Request
+            requestBtn.setText("Request "+tempValues.getLineName().toUpperCase());
+            downloadBtn.setText("Download");
+            downloadBtn.setEnabled(false);
+            requestBtn.setEnabled(true);
+        } else if (tempValues.getLineStatus().equals("3")) {            //Requested
+            requestBtn.setText("Request");
+            requestBtn.setEnabled(false);
+            downloadBtn.setText("Download");
+            downloadBtn.setEnabled(false);
+        } else {
+            requestBtn.setText("Request");
+            requestBtn.setEnabled(false);
+            downloadBtn.setText("Download");
+            downloadBtn.setEnabled(false);
+        }
+    }
+
+    public void initiateDownload(LineRequestModel line) {
+        String mLineDesc, mLineNo, mLineStatus;
+
+        RequestQueue downloadQueue = Volley.newRequestQueue(getApplicationContext());
+        JSONObject js = new JSONObject();
+
+        mLineDesc  = line.getLineName();
+        mLineNo    = line.getLineNo();
+        mLineStatus= line.getLineStatus();
+
+        try {
+            js.put(TAG_LINE_NAME,   mLineDesc);
+            js.put(TAG_LINE_NO,     mLineNo);
+            js.put(TAG_LINE_STATUS, mLineStatus);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(
+                Request.Method.POST, collectionDataUrl, js,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        String rspnseMsg = response.toString();
+                        if(rspnseMsg!=null && !rspnseMsg.equals("") && !rspnseMsg.isEmpty()) {
+                            Toast.makeText(getApplicationContext(), "Response: " + rspnseMsg, Toast.LENGTH_LONG).show();
+                            //processJson(response);
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(), "Response: Response received as NULL" , Toast.LENGTH_LONG).show();
+                        progressBar.dismiss();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errMsg = error.toString();
+                if(errMsg!=null && !errMsg.equals("") && !errMsg.isEmpty()) {
+                    if (error instanceof TimeoutError) {
+                        errorStr = "Timeout Error. Please try again or contact admin";
+                    } else if (error instanceof NoConnectionError) {
+                        errorStr = "No Internet Connection. Please check your Internet";
+                    } else if (error instanceof AuthFailureError) {
+                        errorStr = "Authentication Failure";
+                    } else if (error instanceof ServerError) {
+                        errorStr = "Server Error";
+                    } else if (error instanceof NetworkError) {
+                        errorStr = "Network Error";
+                    } else if (error instanceof ParseError) {
+                        errorStr = "Parse Error";
+                    }
+                    snackMe(errorStr);
+                }
+                else {
+                    //Toast.makeText(getApplicationContext(), "Error: Response received as NULL", Toast.LENGTH_LONG).show();
+                    snackMe("Error: Response received as NULL");
+                }
+                progressBar.dismiss();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
+            }
+        };
+
+        downloadQueue.add(jsonObjReq);
+
+    }
+
+    public void initiateRequest(LineRequestModel line) {
+        String mLineDesc, mLineNo, mLineStatus;
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        JSONObject js = new JSONObject();
+
+        mLineDesc  = line.getLineName();
+        mLineNo    = line.getLineNo();
+        mLineStatus= line.getLineStatus();
+
+        try {
+            js.put(TAG_LINE_NAME,   mLineDesc);
+            js.put(TAG_LINE_NO,     mLineNo);
+            js.put(TAG_LINE_STATUS, mLineStatus);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(
+                Request.Method.POST, collectionDataUrl, js,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        String rspnseMsg = response.toString();
+                        if(rspnseMsg!=null && !rspnseMsg.equals("") && !rspnseMsg.isEmpty()) {
+                            Toast.makeText(getApplicationContext(), "Response: " + rspnseMsg, Toast.LENGTH_LONG).show();
+                            //processJson(response);
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(), "Response: Response received as NULL" , Toast.LENGTH_LONG).show();
+                        progressBar.dismiss();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String errMsg = error.toString();
+                if(errMsg!=null && !errMsg.equals("") && !errMsg.isEmpty()) {
+                    if (error instanceof TimeoutError) {
+                        errorStr = "Timeout Error. Please try again or contact admin";
+                    } else if (error instanceof NoConnectionError) {
+                        errorStr = "No Internet Connection. Please check your Internet";
+                    } else if (error instanceof AuthFailureError) {
+                        errorStr = "Authentication Failure";
+                    } else if (error instanceof ServerError) {
+                        errorStr = "Server Error";
+                    } else if (error instanceof NetworkError) {
+                        errorStr = "Network Error";
+                    } else if (error instanceof ParseError) {
+                        errorStr = "Parse Error";
+                    }
+                    snackMe(errorStr);
+                }
+                else {
+                    //Toast.makeText(getApplicationContext(), "Error: Response received as NULL", Toast.LENGTH_LONG).show();
+                    snackMe("Error: Response received as NULL");
+                }
+                progressBar.dismiss();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
+            }
+        };
+
+        requestQueue.add(jsonObjReq);
+
+    }
+
+    public Boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting();
+    }
+
+    public void checkOnline() {
+        if(!isOnline()) {
+            Snackbar.make(requestBtn, R.string.internet_offline, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.settings, new View.OnClickListener() {
+                        @Override
+                        @TargetApi(Build.VERSION_CODES.M)
+                        public void onClick(View v) {
+                            startActivityForResult(new Intent(Settings.ACTION_SETTINGS), 0);
+                        }
+                    }).setActionTextColor(Color.RED)
+                    .show();
+        }
+    }
+
+    public void snackMe(String message) {
+        Snackbar.make(requestBtn, message, Snackbar.LENGTH_LONG).show();
+    }
+
+}
+
