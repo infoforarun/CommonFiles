@@ -154,10 +154,95 @@ public class DBAdapter {
     	// Open database for Read / Write        
         final SQLiteDatabase db = open();
         
+        String vAccountNo 	= sqlEscapeString();
+        String vAccountODt	= sqlEscapeString();
+        String vCustomerNm	= sqlEscapeString();
+        String vMobileNo	= sqlEscapeString();
+        //String Vsavedon = new SimpleDateFormat("yyMMddHHmmss").format(Calendar.getInstance().getTime());
         
-    	
-    	
+        int vDueAmt			= sqlEscapeString();
+        int vPaidAmt		= sqlEscapeString();
+        int vBalanceAmt		= sqlEscapeString();
+        
+        ContentValues cVal = new ContentValues();
+        
+        cVal.put(COLLECTION_KEY_ACC_NO, 	vAccountNo);
+		cVal.put(COLLECTION_KEY_ACC_O_DT, 	vAccountODt);
+		cVal.put(COLLECTION_KEY_BALANCE_AMT,vBalanceAmt);
+		cVal.put(COLLECTION_KEY_CUST_NAME, 	vCustomerNm);
+		cVal.put(COLLECTION_KEY_MOBILE, 	vMobileNo);
+		cVal.put(COLLECTION_KEY_DUE_AMT, 	vDueAmt);
+		cVal.put(COLLECTION_KEY_PAID_AMT, 	vPaidAmt);
+		cVal.put(COLLECTION_KEY_CURR_ROW, 	"N");
+		cVal.put(COLLECTION_KEY_SAVED, 		"N");
+		cVal.put(COLLECTION_KEY_SAVED_ON, 	null);
+		cVal.put(COLLECTION_KEY_SYNCED, 	"N");
+		cVal.put(COLLECTION_KEY_SYNCED_ON, 	null);
+        
+		db.insert(COLLECTION_TABLE, null, cVal);     
+        db.close();
     }
-    		
+    
+    public static void insertMetadata(MetadataModel mData) {
+    
+    	final SQLiteDatabase db = open();
+    	
+    	String vUsername	= sqlEscapeString();
+    	String vPassword	= sqlEscapeString();
+    	String vFinanceCd	= sqlEscapeString();
+    	String vCustomerID	= sqlEscapeString();
+    	String vCollStarted = sqlEscapeString();
+    	String vOfflineColl	= sqlEscapeString();
+    	String vAppVersion 	= sqlEscapeString();
+    	
+    	ContentValues cVal = new ContentValues();
+    	
+    	cVal.put(METADATA_KEY_USERNAME, 	vUsername);
+		cVal.put(METADATA_KEY_PASSWORD, 	vPassword);
+		cVal.put(METADATA_KEY_FINANCE_CD,	vFinanceCd);
+		cVal.put(METADATA_KEY_CUSTOMER_ID, 	vCustomerID);
+		cVal.put(METADATA_KEY_COLLSTARTED, 	vCollStarted);
+		cVal.put(METADATA_KEY_OFFLINE_COLL, vOfflineColl);
+		cVal.put(METADATA_KEY_APP_VERSION, 	vAppVersion);
+    	
+		db.insert(METADATA_TABLE, null, cVal);     
+        db.close();
+    }
+    
+    public static void trucateTable(String table) {
+    	
+    	final SQLiteDatabase db = open();
+    	
+    	db.delete(table, null, null);
+    	db.close();
+    }
+    
+    public static void resetTableSequence(String table) {
+    	
+    	final SQLiteDatabase db = open();
+    
+    	db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + table + "'");
+    	db.close();
+    }
+    
+    public void String setCollectionStarted() {
+    	
+    	final SQLiteDatabase db = open();
+    	String sql = "SELECT * FROM " + METADATA_TABLE ;
+    	Cursor c2 = db.rawQuery(sql, null);
+    	
+    	if(c2 != null && c2.moveToFirst() ) {
+    		String csVal = c2.getString(c2.getColumnIndex(METADATA_KEY_COLLSTARTED));
+    		if(csVal.equals("N")) {
+    			ContentValues values = new ContentValues();
+    			values.put(METADATA_KEY_COLLSTARTED, "Y");
+    			
+    			db.update(METADATA_TABLE, values, null, null);
+    		}
+    	}
+    }
+    
+
+    
 
 }
