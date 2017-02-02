@@ -1,0 +1,127 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    tools:context=".ReportActivity" >
+
+	<LinearLayout
+        android:id="@+id/raHeaderLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:weightSum="4.5"
+        android:orientation="horizontal" >
+        
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.5"
+	        android:textStyle="bold"
+	        android:textSize="14sp"
+	        android:background="@color/bg_button_login"
+	        android:textColor="@color/white"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:paddingLeft="4dp"
+	        android:ems="4"
+	        android:text="Acc#"/>
+    	<TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.5"
+	        android:textStyle="bold"
+	        android:textSize="14sp"
+	        android:background="@color/bg_button_login"
+	        android:textColor="@color/white"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:paddingLeft="4dp"
+	        android:ems="8"
+	        android:text="Name"/>
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.5"
+	        android:textStyle="bold"
+	        android:textSize="14sp"
+	        android:background="@color/bg_button_login"
+	        android:textColor="@color/white"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:paddingLeft="4dp"
+	        android:ems="3"
+	        android:text="Paid"/>
+	    
+	</LinearLayout>
+	
+		<ListView 
+		    android:id="@+id/list"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:choiceMode="singleChoice"
+	        android:divider="@color/white"
+	        android:dividerHeight="1px"
+	        android:background="@drawable/bg_gradient"
+	        android:layout_below="@+id/raHeaderLayout"
+	        android:layout_above="@+id/raFooterLayout" />
+	
+	
+	<LinearLayout
+        android:id="@+id/raFooterLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:weightSum="4.5"
+        android:orientation="horizontal" >
+	    
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.5"
+	        android:textStyle="bold"
+	        android:textSize="20sp"
+	        android:background="@color/bg_button_login"
+	        android:textColor="@color/white"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:paddingLeft="4dp"
+	        android:ems="4"
+	        android:text="Total"/>
+	    
+	    <TextView 
+	        android:id="@+id/arTvCount"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.5"
+	        android:textStyle="bold"
+	        android:textSize="20sp"
+	        android:background="@color/bg_button_login"
+	        android:textColor="@color/white"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:paddingLeft="4dp"
+	        android:paddingRight="3dp"
+	        android:ems="7"
+	        android:gravity="right"
+	        android:text="0"/>
+	    
+	    <TextView 
+	        android:id="@+id/arTvDueSum"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.5"
+	        android:textStyle="bold"
+	        android:textSize="20sp"
+	        android:background="@color/bg_button_login"
+	        android:textColor="@color/white"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:paddingLeft="4dp"
+	        android:paddingRight="3dp"
+	        android:ems="5"
+	        android:gravity="right"
+	        android:text="0"/>
+    
+	</LinearLayout>
+
+</RelativeLayout>

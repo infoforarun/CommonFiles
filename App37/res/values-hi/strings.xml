@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     
+    <string name="welcome">स्वागतम</string>
+    <string name="username">यूज़र नेम</string>
+    <string name="password">पासवर्ड</string>
+    <string name="login">लॉगिन</string>
+    <string name="signup">खाता नहीं है? साइन अप करें</string>
+    
+    <!--  Main Activity 	-->
+    <string name="strMaLblAccountNo">खाता संख्या</string>
+    <string name="strMaLblName">नाम</string>
+    <string name="strMaLblMobile">मोबाइल</string>
+    <string name="strMaLblOpeningDate">उद्घाटन की तिथि</string>
+    <string name="strMaLblNoOfDays">दिनों की संख्या</string>
+    <string name="strMaLblLoanAmt">ऋण की राशि</string>
+    <string name="strMaLblCurrentDue">वर्तमान की वजह</string>
+    <string name="strMalblPrev">&lt;- पूर्व</string>
+    <string name="strMalblSave">बचाना</string>
+    <string name="strMalblNext">अगला -&gt;</string>
+    
+    <!-- Select Option Activity -->
+    <string name="strAsoLblLoanDetails">ऋण विवरण</string>
+    
+    
+    <string name="title_activity_login">लॉग इन करें</string>
+    <string name="title_activity_select_option">होम स्क्रीन</string>
+
+ 
+</resources>

@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".SelectOptionActivity" >
+
+	<ScrollView
+         android:id="@+id/maScrollView"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_above="@+id/maFooterLayout" >
+         
+	    <LinearLayout
+	        android:id="@+id/asoLinearLayout"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:orientation="vertical">
+	 
+	        <Button 
+	            android:id="@+id/asoBtnLoanDetails"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:onClick="asoOnClickLoanDetails"
+	            android:background="@drawable/bg_button_rounded"
+	            android:textColor="@color/white"
+	            android:layout_marginBottom="10dp"
+	            android:text="@string/strAsoLblLoanDetails"/>
+	
+			<Button 
+	            android:id="@+id/asoBtnVehicle"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:onClick="asoOnClickVehicleDetails"
+	            android:background="@drawable/bg_button_rounded"
+	            android:textColor="@color/white"
+	            android:layout_marginBottom="10dp"
+	            android:text="@string/strAsoLblVehicleDetails"/>
+	
+			<Button 
+	            android:id="@+id/asoBtnReport"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/bg_button_rounded"
+	            android:textColor="@color/white"
+	            android:layout_marginBottom="10dp"
+	            android:onClick="asoOnClickReport"
+	            android:text="@string/strAsoLblReport"/>
+			
+			<!-- 
+			
+			<Button 
+	            android:id="@+id/asoBtnGenCsv"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/bg_button_rounded"
+	            android:textColor="@color/white"
+	            android:layout_marginBottom="10dp"
+	            android:onClick="asoOnClickGenCsv"
+	            android:text="@string/strAsoLblGenCsv"/>
+
+			<Button 
+			    android:id="@+id/asoBtnSettings"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/bg_button_rounded"
+	            android:textColor="@color/white"
+	            android:layout_marginBottom="10dp"
+	            android:onClick="asoOnClickSettings"
+	            android:text="@string/strAsoLblSettings"/>
+	            
+	          -->
+	          
+	   </LinearLayout>
+	   
+	</ScrollView>
+</RelativeLayout>

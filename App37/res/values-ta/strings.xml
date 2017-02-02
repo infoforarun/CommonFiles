@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome">நல்வரவு!</string>
+    <string name="username">பெயர்</string>
+    <string name="password">பாஸ்வோர்ட்</string>
+    <string name="login">உள் நுழைக</string>
+    <string name="signup">புதிதாக துவங்கு</string>
+    
+    
+    <!--  Main Activity 	-->
+    <string name="strMaLblAccountNo">கணக்கு எண்</string>
+    <string name="strMaLblName">பெயர்</string>
+    <string name="strMaLblMobile">மொபைல்</string>
+    <string name="strMaLblOpeningDate">தொடக்க தேதி</string>
+    <string name="strMaLblNoOfDays">நாட்கள்</string>
+    <string name="strMaLblLoanAmt">கடன் தொகை</string>
+    <string name="strMaLblCurrentDue">வரவு</string>
+    <string name="strMalblPrev">&lt;- சென்ற</string>
+    <string name="strMalblSave">சேமி</string>
+    <string name="strMalblNext">அடுத்து -&gt;</string>
+    
+    <!-- Select Option Activity -->
+
+	<string name="strAsoLblLoanDetails">கடன் விவரம்</string>
+
+</resources>

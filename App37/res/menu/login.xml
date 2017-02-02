@@ -1,0 +1,43 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item 
+        android:title="@string/strLaMenu"
+        android:id="@+id/login_action_overflow"
+	    android:icon="@drawable/ic_action_overflow"
+	    android:orderInCategory="99"
+	    android:showAsAction="always">
+	
+        <menu>
+		    
+            <!-- 
+		    <item
+		        android:id="@+id/login_action_lang_english"
+		        android:orderInCategory="100"
+		        android:showAsAction="never"
+		        android:title="@string/action_lang_eng"/>
+		    
+		    <item
+		        android:id="@+id/login_action_lang_tamil"
+		        android:orderInCategory="101"
+		        android:showAsAction="never"
+		        android:title="@string/action_lang_tamil"/>
+		    
+		    <item
+		        android:id="@+id/login_action_lang_hindi"
+		        android:orderInCategory="102"
+		        android:showAsAction="never"
+		        android:title="@string/action_lang_hindi"/>
+		     -->
+		    
+		    <item
+		        android:id="@+id/login_action_reload_file"
+		        android:orderInCategory="103"
+		        android:showAsAction="never"
+		        android:title="@string/action_reload_file"/>
+		    
+		    
+		 </menu>
+		 
+    </item>
+
+</menu>

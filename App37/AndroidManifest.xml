@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.app37"
+    android:versionCode="1"
+    android:versionName="1.0.2" 
+    android:installLocation="preferExternal">
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/android_browser"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.likecorp.app37.MainActivity"
+            android:label="@string/loan_entry"
+            android:parentActivityName="com.likecorp.app37.SelectOptionActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.app37.SelectOptionActivity" />
+        </activity>
+        <activity
+            android:name="com.likecorp.app37.LoginActivity"
+            android:label="@string/title_activity_login" >
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+        		<category android:name="android.intent.category.BROWSABLE" />
+        			<!-- The OPENABLE category declares that the returned file is accessible
+             		from a content provider that supports OpenableColumns
+             		and ContentResolver.openFileDescriptor() -->
+        		<category android:name="android.intent.category.OPENABLE" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.likecorp.app37.SelectOptionActivity"
+            android:label="@string/title_acitivit_home" >
+        </activity>
+        <activity
+            android:name="com.likecorp.app37.ReportActivity"
+            android:label="@string/title_activity_report"
+            android:parentActivityName="com.likecorp.app37.SelectOptionActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.app37.SelectOptionActivity" />
+        </activity>
+        <activity
+            android:name="com.likecorp.app37.VehicleActivity"
+            android:label="@string/title_activity_vehicle"
+            android:parentActivityName="com.likecorp.app37.SelectOptionActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.app37.SelectOptionActivity" />
+        </activity>
+        <activity
+            android:name="com.likecorp.app37.FileExplore"
+            android:label="@string/title_activity_file_explore" 
+            android:screenOrientation="portrait"
+            android:parentActivityName="com.likecorp.app37.SelectOptionActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.app37.SelectOptionActivity" />
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,158 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_gradient"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".VehicleActivity" >
+
+    <ScrollView
+         android:id="@+id/vaScrollView"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent" >
+         
+        <LinearLayout
+			android:orientation="vertical" 
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:focusableInTouchMode="true"> 
+			
+            <LinearLayout
+				android:orientation="horizontal" 
+				android:weightSum="5"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content">
+	            <TextView
+	                android:id="@+id/vaTvVehicleNo"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="@string/strVaLblVehiclNo"
+	                android:layout_weight="2"
+	                android:textSize="17sp"
+					android:ems="8"
+	                android:textStyle="bold" 
+	                android:textColor="@color/white"/>
+				<EditText
+				    android:id="@+id/vaEtVehicleNo"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_weight="3"
+				    android:background="@android:drawable/edit_text"
+				    android:ems="10" 
+				    android:inputType="text" />
+			</LinearLayout>
+			
+             <LinearLayout
+				android:orientation="horizontal" 
+				android:weightSum="5"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content">
+	            <TextView
+	                android:id="@+id/vaTvStartKm"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="@string/strVaLblStartKM"
+	                android:layout_weight="2"
+	                android:textSize="17sp"
+					android:ems="8"
+	                android:textStyle="bold" 
+	                android:textColor="@color/white"/>
+				<EditText
+				    android:id="@+id/vaEtStartKm"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_weight="3"
+				    android:background="@android:drawable/edit_text"
+				    android:ems="10" 
+				    android:inputType="number" />
+			</LinearLayout>
+			
+            <LinearLayout
+				android:orientation="horizontal" 
+				android:weightSum="5"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content">
+	            <TextView
+	                android:id="@+id/vaTvEndKm"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="@string/strVaLblEndKM"
+	                android:layout_weight="2"
+	                android:textSize="17sp"
+					android:ems="8"
+	                android:textStyle="bold" 
+	                android:textColor="@color/white"/>
+				<EditText
+				    android:id="@+id/vaEtEndKm"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_weight="3"
+				    android:background="@android:drawable/edit_text"
+				    android:ems="10" 
+				    android:inputType="number" />
+			</LinearLayout>
+            
+            <LinearLayout
+				android:orientation="horizontal" 
+				android:weightSum="5"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content">
+	            <TextView
+	                android:id="@+id/vaTvOtherExpenses"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="@string/strVaLblOtherExpenses"
+	                android:layout_weight="2"
+	                android:textSize="17sp"
+					android:ems="8"
+	                android:textStyle="bold" 
+	                android:textColor="@color/white"/>
+				<EditText
+				    android:id="@+id/vaEtOtherExpenses"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_weight="3"
+				    android:background="@android:drawable/edit_text"
+				    android:ems="10" 
+				    android:inputType="number" />
+			</LinearLayout>
+            
+            <Button
+		        android:id="@+id/maBtnNext"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:onClick="savebtnOnclick"
+		        android:text="@string/strVaLblSave"
+		        android:background="@drawable/bg_button_rounded_wop" 
+		        android:textColor="@color/white"/>
+            
+        </LinearLayout>
+        
+   </ScrollView>
+   
+   <!--
+  <LinearLayout
+        android:id="@+id/maFooterLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:weightSum="5.0"
+        android:orientation="horizontal" >
+      
+      <Button
+		        android:id="@+id/maBtnNext"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:onClick="savebtnOnclick"
+		        android:text="@string/strVaLblSave"
+		        android:background="@drawable/bg_button_rounded_wop" 
+		        android:textColor="@color/white"/>
+      
+  </LinearLayout>
+  
+  -->
+
+</RelativeLayout>
