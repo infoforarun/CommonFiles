@@ -1,1 +1,32 @@
-Setup a dashboard
+1. Wiring of Initiate request
+2. Wiring of download Collection
+3. Load Collection entry based on downlaed collection.
+4. Show loading while fragment is getting inflated.
+5. Simple notepad to save data
+6. Enable location service
+7. Get location information while Saving collection
+8. Report - onRefresh item, Color swap
+
+1. Set up a simple Dashboard
+2. Find an image for "Nothing found"
+   https://github.com/chartjs/Chart.js/issues/5964
+
+3. Simple profile page - Offline
+4. Settings page
+	Collection entry transformation.
+	Clear data
+	Save online ONLY?
+5. On backpressed. Show quit the app?
+6. Document upload - Required now?
+7. Requirement for Account
+8. Abount us fragment.
+9. Scale memory performance and check whether fragments are wiped after closing.
+
+
+
+
+
+#############################################################
+   https://www.google.com/imgres?imgurl=https%3A%2F%2Ficon2.kisspng.com%2F20180211%2Fhxe%2Fkisspng-dog-puppy-cartoon-animal-illustration-sit-back-and-relax-small-animals-5a8060db554019.8776752815183628433492.jpg&imgrefurl=https%3A%2F%2Fwww.kisspng.com%2Fpng-dog-puppy-cartoon-animal-illustration-sit-back-and-382963%2Fdownload-png.html&docid=FG9SQiC-KUlO2M&tbnid=CTpC0Y7iIv7m9M%3A&vet=10ahUKEwie0fa7nfPgAhWGmOAKHedQCnwQMwhGKAMwAw..i&w=260&h=500&hl=en&authuser=0&bih=358&biw=1284&q=dogrelax%20png&ved=0ahUKEwie0fa7nfPgAhWGmOAKHedQCnwQMwhGKAMwAw&iact=mrc&uact=8
+https://www.google.com/search?q=relax+png&hl=en&authuser=0&tbm=isch&tbs=rimg:CcdfNDr4XgFYIjh_1x_1qmWfWFFkspztWq5M3hm9ysuJM4qn5mnd8qvd1L9yfGK3qbpkT5LsNeHVM_1toY0ZTKRNKz-ayoSCX_1H-qZZ9YUWEQE9596JTGMAKhIJSynO1arkzeERkxyLKeBfOz0qEgmb3Ky4kziqfhGwbylHwvwDTyoSCWad3yq93Uv3EaD49l38eOcfKhIJJ8YrepumRPkRvQCvUAii9WMqEgkuw14dUz-2hhEamSo2ZrZ4pyoSCTRlMpE0rP5rERxOicir54jG&tbo=u&sa=X&ved=2ahUKEwiDqc6bnfPgAhVNTt8KHb4qAfAQ9C96BAgBEBs&biw=1284&bih=358&dpr=0.5#imgrc=J8YrepumRPnS4M:
+https://www.google.com/search?q=chillax+png&hl=en&authuser=0&tbm=isch&tbs=rimg:CXIGj0wEUlElIjhV_1MT0OGGKYj8gPlyF8l7ZKsGV1s2hM4EPkKCu8CTbsQp4xMlGoF7QRnQp4Wa4k8V9t6jg7GbjLyoSCVX8xPQ4YYpiEcVAqDu_1MpZ8KhIJPyA-XIXyXtkRtFS1jolq2ZsqEgkqwZXWzaEzgRETll1WY8kX7yoSCQ-QoK7wJNuxEcZP7zQU-9xZKhIJCnjEyUagXtAReqfIM95M60UqEglGdCnhZriTxRGwyADWhYbI5CoSCX23qODsZuMvEdc0RdM7IoLi&tbo=u&sa=X&ved=2ahUKEwjDtvGOn_PgAhVDIKwKHdFwBJQQ9C96BAgBEBs&biw=1284&bih=358&dpr=0.5
